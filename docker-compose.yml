@@ -1,0 +1,30 @@
+services:
+  frontend:
+    build: 
+      context: .  # Busca el Dockerfile en esta misma carpeta
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - "4200:4200"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ejemplo123
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+
+volumes:
+  mongodb_data:
