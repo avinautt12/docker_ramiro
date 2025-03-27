@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../environments/enviroment';
 
 @Component({
   selector: 'app-login',
@@ -10,14 +11,15 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-
-  
   email: string = '';
   password: string = '';
   isLoading: boolean = false;
   errorMessage: string = '';
 
   login() {
+    console.log('API URL:', environment.apiUrl); // 👈 Aquí verificamos la variable
+    console.log('Mongo User:', environment.mongoUser); // 👈 Opcional: verificar otra variable
+
     this.isLoading = true;
     this.errorMessage = '';
 
